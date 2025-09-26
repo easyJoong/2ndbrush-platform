@@ -1,0 +1,493 @@
+Product Requirements Document (PRD)
+2ndBrush Beauty Platform
+
+===== 문서 정보 =====
+- 작성일: 2025.01.18
+- 버전: 1.0
+- 프로젝트명: 2ndBrush Beauty Platform
+- GitHub: https://github.com/2ndBrush/SecondBrush
+
+=====================================
+1. 제품 개요
+=====================================
+
+1.1 비전
+프리미엄 뷰티 서비스를 온라인으로 쉽게 예약하고, 전문 교육을 받으며, 고품질 뷰티 디바이스를 구매할 수 있는 회원제 통합 플랫폼
+
+1.2 프로젝트 정보
+- 도메인: www.2ndbrush.com
+- GitHub: https://github.com/2ndBrush/SecondBrush
+- Instagram: @2ndbrush_official
+
+1.3 목표
+- 회원 가입을 통한 고객 데이터베이스 구축
+- 온라인 예약 시스템으로 운영 효율성 증대
+- 블로그 콘텐츠를 통한 회원 유입 및 유지
+- 디바이스 판매를 통한 추가 수익 창출
+
+1.3 타겟 사용자
+- 비회원: 서비스 탐색 중인 잠재 고객 / 서비스 정보 확인, 가격 비교
+- 일반 회원: 가입 완료한 고객 / 시술 예약, 제품 구매, 정보 습득
+- VIP 회원: 충성 고객 (향후 확장) / 프리미엄 혜택, 우선 예약
+- 관리자: 2ndBrush 운영진 / 고객 관리, 콘텐츠 관리, 매출 관리
+
+=====================================
+2. 핵심 기능 명세
+=====================================
+
+2.1 인증 시스템
+
+2.1.1 회원가입 (Critical Feature)
+목표: 5초 이내 간편 가입
+
+[일반 가입]
+필수 입력 필드:
+- 이메일 (중복 체크)
+- 비밀번호 (최소 8자, 영문+숫자)
+- 이름 (2-20자)
+- 휴대폰 번호 (자동 하이픈)
+
+선택 입력:
+- 생년월일 (이벤트/마케팅용)
+- 마케팅 수신 동의
+
+[소셜 로그인]
+- Google OAuth 2.0
+- Kakao Login
+- Naver Login
+- Instagram Login (자동 팔로우 연동)
+- 추가 정보는 첫 로그인 시 수집
+
+[Instagram 가입 특별 기능]
+- Instagram으로 가입 시 @2ndbrush_official 자동 팔로우
+- 팔로워 전용 혜택 제공 (10% 할인 쿠폰)
+- Instagram 스토리 자동 공유 권한 요청 (선택)
+
+2.1.2 로그인
+- 이메일/비밀번호 로그인
+- 소셜 로그인 (Google, Kakao)
+- 자동 로그인 옵션
+- 비밀번호 찾기 (이메일 인증)
+
+2.2 사용자 기능
+
+2.2.1 홈페이지
+모든 사용자 접근 가능
+- Hero 섹션: 메인 비주얼 + CTA 버튼
+- 서비스 하이라이트 (3-4개 대표 시술)
+- 최신 블로그 포스트 미리보기 (회원 유도)
+- 고객 후기
+- 인스타그램 피드 연동
+
+2.2.2 시술 서비스
+정보 열람: 모든 사용자
+예약: 회원 전용
+
+제공 서비스:
+1. 눈썹 시술
+   - 눈썹 문신 (반영구)
+   - 눈썹 리터치
+   - 눈썹 제거
+
+2. 피부 관리
+   - 기본 관리
+   - 스페셜 케어
+   - 문제성 피부 집중 케어
+
+3. 두피 문신
+   - 헤어라인 교정
+   - 밀도 보강
+   - 상처 커버
+
+예약 프로세스 (회원 전용):
+1. 서비스 선택
+2. 날짜/시간 선택 (달력 UI)
+3. 담당자 선택 (선택사항)
+4. 예약 정보 확인
+5. 예약 완료 (카카오 알림톡 발송)
+
+2.2.3 교육 프로그램
+정보 열람: 모든 사용자
+신청: 회원 전용
+
+교육 과정:
+- 기초 과정 (4주)
+- 심화 과정 (8주)
+- 창업 과정 (12주)
+- 원데이 클래스
+
+2.2.4 디바이스 쇼핑
+상품 목록/상세: 모든 사용자
+구매: 회원 전용
+
+상품 카테고리:
+- 시술 도구
+- 홈케어 디바이스
+- 화장품/앰플
+- 교육 교재
+
+구매 프로세스:
+1. 상품 선택
+2. 장바구니 담기
+3. 로그인 확인
+4. 배송 정보 입력
+5. 결제 (PG 연동)
+
+2.2.5 블로그 (회원 전용)
+접근 제한: 회원만 열람 가능
+
+콘텐츠 카테고리:
+- 시술 전/후 관리법
+- 트렌드 정보
+- 전문가 칼럼
+- 고객 후기
+- 이벤트/프로모션
+
+2.3 관리자 기능
+
+2.3.1 대시보드
+- 일일/주간/월간 매출 현황
+- 신규 회원 가입 현황
+- 예약 현황 (오늘/이번주)
+- 인기 상품/서비스 TOP 5
+
+2.3.2 고객 관리
+- 회원 목록 조회/검색
+- 회원 상세 정보 (예약 이력, 구매 이력)
+- 회원 등급 관리
+- 메모/태그 기능
+- 대량 메시지 발송
+
+2.3.3 예약 관리
+- 예약 캘린더 뷰
+- 예약 상태 변경 (확정/취소/완료)
+- 예약 알림 발송
+- 블랙리스트 관리
+
+2.3.4 상품 관리
+- 상품 등록/수정/삭제
+- 재고 관리
+- 가격 설정
+- 이미지 업로드 (Firebase Storage)
+- 상품 노출 순서 관리
+
+2.3.5 콘텐츠 관리
+- 블로그 포스트 작성/수정
+- 이미지/동영상 업로드
+- SEO 설정
+- 발행 예약
+
+=====================================
+3. 기술 사양
+=====================================
+
+3.1 기술 스택
+- Frontend: Next.js 14+ (SSR/SSG, SEO 최적화)
+- Styling: Tailwind CSS 3.4+ (빠른 개발, 일관된 디자인)
+- Database: Firestore (실시간 동기화, 무료 티어)
+- Authentication: Firebase Auth (소셜 로그인 지원)
+- Storage: Firebase Storage (이미지/파일 저장)
+- Hosting: Firebase Hosting (자동 SSL, CDN)
+- Analytics: Firebase Analytics (사용자 행동 분석)
+- Payment: TBD - Toss/Iamport (한국 PG 연동)
+
+3.2 시스템 아키텍처
+Client (Browser) <--> Next.js Server <--> Firebase Services
+                           |                    |
+                           v                    v
+                    Vercel (ISR)         Firestore/Storage
+
+=====================================
+4. 데이터 모델
+=====================================
+
+4.1 Users Collection
+{
+  uid: string,
+  email: string,
+  name: string,
+  phone: string,
+  provider: 'email' | 'google' | 'kakao',
+  createdAt: Timestamp,
+  lastLoginAt: Timestamp,
+  emailVerified: boolean,
+  phoneVerified: boolean,
+  membership: {
+    type: 'basic' | 'vip',
+    joinedAt: Timestamp,
+    expiresAt?: Timestamp
+  },
+  marketing: {
+    email: boolean,
+    sms: boolean,
+    kakao: boolean
+  },
+  metadata: {
+    birthDate?: string,
+    gender?: 'M' | 'F' | 'O',
+    referralCode?: string
+  }
+}
+
+4.2 Appointments Collection
+{
+  id: string,
+  userId: string,
+  serviceId: string,
+  staffId?: string,
+  date: Timestamp,
+  timeSlot: string, // "14:00-15:30"
+  status: 'pending' | 'confirmed' | 'completed' | 'cancelled',
+  price: number,
+  deposit: number,
+  notes?: string,
+  createdAt: Timestamp,
+  updatedAt: Timestamp
+}
+
+4.3 Products Collection
+{
+  id: string,
+  name: string,
+  category: string,
+  price: number,
+  discountPrice?: number,
+  description: string,
+  images: string[],
+  stock: number,
+  isActive: boolean,
+  tags: string[],
+  createdAt: Timestamp,
+  updatedAt: Timestamp
+}
+
+4.4 BlogPosts Collection
+{
+  id: string,
+  title: string,
+  slug: string,
+  content: string, // HTML/Markdown
+  excerpt: string,
+  author: string,
+  category: string,
+  tags: string[],
+  thumbnail: string,
+  images: string[],
+  published: boolean,
+  publishedAt?: Timestamp,
+  views: number,
+  likes: number,
+  createdAt: Timestamp,
+  updatedAt: Timestamp
+}
+
+=====================================
+5. 페이지 구조 & URL
+=====================================
+
+/                           # 홈페이지
+/auth
+  /login                    # 로그인
+  /signup                   # 회원가입
+  /forgot-password          # 비밀번호 찾기
+/services                   # 시술 서비스
+  /eyebrow                  # 눈썹 시술
+  /skincare                 # 피부 관리
+  /scalp                    # 두피 문신
+  /booking                  # 예약 (회원 전용)
+/education                  # 교육 프로그램
+  /basic                    # 기초 과정
+  /advanced                 # 심화 과정
+  /startup                  # 창업 과정
+  /apply                    # 신청 (회원 전용)
+/shop                       # 쇼핑
+  /category/[slug]          # 카테고리별 상품
+  /product/[id]             # 상품 상세
+  /cart                     # 장바구니
+  /checkout                 # 결제 (회원 전용)
+/blog                       # 블로그 (회원 전용)
+  /post/[slug]              # 포스트 상세
+  /category/[category]      # 카테고리별 목록
+/mypage                     # 마이페이지 (회원 전용)
+  /profile                  # 프로필 수정
+  /appointments             # 예약 내역
+  /orders                   # 주문 내역
+/admin                      # 관리자 (관리자 전용)
+  /dashboard                # 대시보드
+  /customers                # 고객 관리
+  /appointments             # 예약 관리
+  /products                 # 상품 관리
+  /blog                     # 블로그 관리
+  /settings                 # 설정
+
+=====================================
+6. UI/UX 요구사항
+=====================================
+
+6.1 디자인 원칙
+- 모바일 우선: 모바일 사용자가 60% 이상
+- 간결함: 불필요한 단계 제거
+- 일관성: 통일된 디자인 시스템
+- 접근성: WCAG 2.1 Level AA 준수
+
+6.2 반응형 브레이크포인트
+- Mobile: 320px - 767px
+- Tablet: 768px - 1023px
+- Desktop: 1024px+
+
+6.3 성능 목표
+- First Contentful Paint: < 1.5s
+- Time to Interactive: < 3.5s
+- Lighthouse Score: > 90
+
+6.4 브라우저 지원
+- Chrome 90+
+- Safari 14+
+- Edge 90+
+- Samsung Internet 14+
+
+=====================================
+7. 보안 요구사항
+=====================================
+
+7.1 인증 & 인가
+- JWT 토큰 기반 인증
+- Refresh Token 구현
+- 세션 타임아웃: 30분
+- 관리자 2FA (향후 구현)
+
+7.2 데이터 보호
+- HTTPS 전체 적용
+- 개인정보 암호화 저장
+- 민감 정보 마스킹
+- Firebase Security Rules 적용
+
+7.3 Firestore Security Rules
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 회원 정보는 본인만 수정 가능
+    match /users/{userId} {
+      allow read: if request.auth != null && 
+        (request.auth.uid == userId || 
+         request.auth.token.admin == true);
+      allow update: if request.auth != null && 
+        request.auth.uid == userId;
+      allow create: if request.auth != null && 
+        request.auth.uid == userId;
+    }
+    
+    // 블로그는 회원만 읽기 가능
+    match /blog_posts/{document} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && 
+        request.auth.token.admin == true;
+    }
+    
+    // 예약은 본인 것만 접근
+    match /appointments/{document} {
+      allow read: if request.auth != null && 
+        (request.auth.uid == resource.data.userId || 
+         request.auth.token.admin == true);
+      allow create: if request.auth != null;
+      allow update: if request.auth != null && 
+        (request.auth.uid == resource.data.userId || 
+         request.auth.token.admin == true);
+    }
+    
+    // 상품은 모두 읽기, 관리자만 쓰기
+    match /products/{document} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+        request.auth.token.admin == true;
+    }
+  }
+}
+
+=====================================
+8. 개발 일정
+=====================================
+
+Phase 1: MVP (4주)
+
+Week 1-2: 기본 설정 & 인증
+- [x] 프로젝트 초기 설정
+- [ ] Firebase 연동
+- [ ] 인증 시스템 구현
+- [ ] 기본 레이아웃
+
+Week 3: 핵심 기능
+- [ ] 서비스 페이지
+- [ ] 블로그 (회원 전용)
+- [ ] 예약 시스템
+
+Week 4: 관리자 & 테스트
+- [ ] 관리자 페이지
+- [ ] 테스트 & 버그 수정
+- [ ] 배포
+
+Phase 2: 확장 (4주)
+- [ ] 결제 시스템
+- [ ] 이메일/SMS 알림
+- [ ] 고급 관리자 기능
+- [ ] 분석 도구 연동
+
+Phase 3: 최적화 (2주)
+- [ ] 성능 최적화
+- [ ] SEO 최적화
+- [ ] A/B 테스트
+- [ ] 사용자 피드백 반영
+
+=====================================
+9. 성공 지표 (KPI)
+=====================================
+
+9.1 비즈니스 지표
+- 회원 가입 수: 500명 (3개월) - Firebase Analytics
+- 월간 활성 사용자: 200명 (3개월) - Firebase Analytics
+- 예약 전환율: 15% - 예약/방문자
+- 블로그 체류 시간: 3분 이상 - Google Analytics
+
+9.2 기술 지표
+- 페이지 로드 시간: < 2초 - Lighthouse
+- 오류율: < 1% - Sentry
+- 가동 시간: > 99.5% - Uptime Monitor
+
+=====================================
+10. 리스크 관리
+=====================================
+
+10.1 기술적 리스크
+- Firebase 무료 한도 초과 (높음): 사용량 모니터링, 단계적 유료 전환
+- 소셜 로그인 API 변경 (중간): 정기적 문서 확인, 폴백 로그인
+- 보안 취약점 (높음): 정기 보안 점검, 즉시 패치
+
+10.2 비즈니스 리스크
+- 낮은 회원 전환율 (높음): A/B 테스트, 가입 혜택 제공
+- 예약 노쇼 (중간): 예약금 제도, 알림 강화
+- 콘텐츠 부족 (낮음): 콘텐츠 캘린더, 외부 라이터
+
+=====================================
+11. 부록
+=====================================
+
+11.1 참고 자료
+- Firebase Documentation: https://firebase.google.com/docs
+- Next.js Documentation: https://nextjs.org/docs
+- Tailwind CSS: https://tailwindcss.com/docs
+
+11.2 용어 정의
+- ISR: Incremental Static Regeneration
+- SSR: Server-Side Rendering
+- SSG: Static Site Generation
+- CTA: Call To Action
+- PG: Payment Gateway
+
+11.3 연락처
+- PM: pm@2ndbrush.com
+- Tech Lead: dev@2ndbrush.com
+- Design Lead: design@2ndbrush.com
+
+이 문서는 지속적으로 업데이트됩니다.
+최종 수정일: 2025.01.18
