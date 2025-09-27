@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { LanguageProvider } from '@/contexts/LanguageContext'
+import { AuthProvider } from '@/contexts/AuthContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,11 +17,13 @@ export default function RootLayout({ children }) {
     <html lang="ko">
       <body className={inter.className}>
         <LanguageProvider>
-          <Header />
-          <main className="min-h-screen pt-20">
-            {children}
-          </main>
-          <Footer />
+          <AuthProvider>
+            <Header />
+            <main className="min-h-screen pt-20">
+              {children}
+            </main>
+            <Footer />
+          </AuthProvider>
         </LanguageProvider>
       </body>
     </html>
