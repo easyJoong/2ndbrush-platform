@@ -1,10 +1,17 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Eye, EyeOff, Mail, Lock, User, Phone, Gift } from 'lucide-react'
+import { useAuth } from '@/contexts/AuthContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function SignupPage() {
+  const { t } = useLanguage()
+  const { signup } = useAuth()
+  const router = useRouter()
+
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
@@ -14,10 +21,55 @@ export default function SignupPage() {
     birthDate: '',
     marketingConsent: false
   })
+  const [errors, setErrors] = useState({})
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e) => {
+  const validateForm = () => {
+    const newErrors = {}
+
+    if (!formData.name.trim()) {
+      newErrors.name = t('signup.errors.nameRequired')
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = t('signup.errors.emailRequired')
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = t('signup.errors.emailInvalid')
+    }
+
+    if (!formData.password) {
+      newErrors.password = t('signup.errors.passwordRequired')
+    } else if (formData.password.length < 6) {
+      newErrors.password = t('signup.errors.passwordLength')
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = t('signup.errors.phoneRequired')
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Signup form submitted:', formData)
+
+    if (!validateForm()) return
+
+    setLoading(true)
+    try {
+      await signup(formData.email, formData.password, {
+        name: formData.name,
+        phone: formData.phone,
+        birthDate: formData.birthDate
+      })
+      router.push('/auth/login?message=signup-success')
+    } catch (error) {
+      console.error('Signup error:', error)
+      setErrors({ submit: error.message })
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handlePhoneChange = (e) => {
@@ -35,12 +87,12 @@ export default function SignupPage() {
           <span className="text-3xl font-bold text-primary-600">2ndBrush</span>
         </Link>
         <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
-          회원가입
+          {t('signup.title')}
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          이미 계정이 있으신가요?{' '}
+          {t('signup.hasAccount')}{' '}
           <Link href="/auth/login" className="font-medium text-primary-600 hover:text-primary-500">
-            로그인
+            {t('signup.loginLink')}
           </Link>
         </p>
       </div>
@@ -111,7 +163,7 @@ export default function SignupPage() {
           <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                이메일 <span className="text-red-500">*</span>
+                {t('signup.email')} <span className="text-red-500">*</span>
               </label>
               <div className="mt-1 relative">
                 <input
@@ -123,15 +175,16 @@ export default function SignupPage() {
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
                   className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                  placeholder="이메일을 입력하세요"
+                  placeholder={t('signup.emailPlaceholder')}
                 />
                 <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-2.5" />
               </div>
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
             </div>
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                비밀번호 <span className="text-red-500">*</span>
+                {t('signup.password')} <span className="text-red-500">*</span>
               </label>
               <div className="mt-1 relative">
                 <input
@@ -143,7 +196,7 @@ export default function SignupPage() {
                   value={formData.password}
                   onChange={(e) => setFormData({...formData, password: e.target.value})}
                   className="appearance-none block w-full px-3 py-2 pl-10 pr-10 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                  placeholder="8자 이상, 영문+숫자"
+                  placeholder={t('signup.passwordPlaceholder')}
                 />
                 <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-2.5" />
                 <button
@@ -158,11 +211,12 @@ export default function SignupPage() {
                   )}
                 </button>
               </div>
+              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
             </div>
 
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                이름 <span className="text-red-500">*</span>
+                {t('signup.name')} <span className="text-red-500">*</span>
               </label>
               <div className="mt-1 relative">
                 <input
@@ -174,15 +228,16 @@ export default function SignupPage() {
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
                   className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                  placeholder="이름을 입력하세요"
+                  placeholder={t('signup.namePlaceholder')}
                 />
                 <User className="w-5 h-5 text-gray-400 absolute left-3 top-2.5" />
               </div>
+              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
             </div>
 
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                휴대폰 번호 <span className="text-red-500">*</span>
+                {t('signup.phone')} <span className="text-red-500">*</span>
               </label>
               <div className="mt-1 relative">
                 <input
@@ -194,15 +249,16 @@ export default function SignupPage() {
                   value={formData.phone}
                   onChange={handlePhoneChange}
                   className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                  placeholder="010-1234-5678"
+                  placeholder={t('signup.phonePlaceholder')}
                 />
                 <Phone className="w-5 h-5 text-gray-400 absolute left-3 top-2.5" />
               </div>
+              {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
             </div>
 
             <div>
               <label htmlFor="birthDate" className="block text-sm font-medium text-gray-700">
-                생년월일 (선택)
+                {t('signup.birthDate')}
               </label>
               <div className="mt-1">
                 <input
@@ -235,12 +291,19 @@ export default function SignupPage() {
               <Link href="/privacy" className="text-primary-600 hover:text-primary-500">개인정보처리방침</Link>에 동의하는 것으로 간주됩니다.
             </div>
 
+            {errors.submit && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                {errors.submit}
+              </div>
+            )}
+
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
+                disabled={loading}
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                회원가입
+                {loading ? t('signup.loading') : t('signup.submit')}
               </button>
             </div>
           </form>

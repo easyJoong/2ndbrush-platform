@@ -1,19 +1,74 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react'
+import { useAuth } from '@/contexts/AuthContext'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function LoginPage() {
+  const { t } = useLanguage()
+  const { login } = useAuth()
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   })
+  const [errors, setErrors] = useState({})
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e) => {
+  const message = searchParams.get('message')
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }))
+    }
+  }
+
+  const validateForm = () => {
+    const newErrors = {}
+
+    if (!formData.email.trim()) {
+      newErrors.email = t('login.errors.emailRequired')
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = t('login.errors.emailInvalid')
+    }
+
+    if (!formData.password) {
+      newErrors.password = t('login.errors.passwordRequired')
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Login form submitted:', formData)
+
+    if (!validateForm()) return
+
+    setLoading(true)
+    try {
+      await login(formData.email, formData.password)
+      router.push('/')
+    } catch (error) {
+      console.error('Login error:', error)
+      setErrors({ submit: error.message })
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -23,18 +78,23 @@ export default function LoginPage() {
           <span className="text-3xl font-bold text-primary-600">2ndBrush</span>
         </Link>
         <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
-          로그인
+          {t('login.title')}
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          아직 계정이 없으신가요?{' '}
+          {t('login.noAccount')}{' '}
           <Link href="/auth/signup" className="font-medium text-primary-600 hover:text-primary-500">
-            회원가입
+            {t('login.signupLink')}
           </Link>
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          {message === 'signup-success' && (
+            <div className="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
+              회원가입이 완료되었습니다. 로그인해주세요.
+            </div>
+          )}
           {/* Social Login Buttons */}
           <div className="space-y-3 mb-6">
             <button className="w-full flex justify-center items-center px-4 py-3 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
@@ -84,7 +144,7 @@ export default function LoginPage() {
           <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                이메일
+                {t('login.email')}
               </label>
               <div className="mt-1 relative">
                 <input
@@ -94,17 +154,18 @@ export default function LoginPage() {
                   autoComplete="email"
                   required
                   value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  onChange={handleChange}
                   className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                  placeholder="이메일을 입력하세요"
+                  placeholder={t('login.emailPlaceholder')}
                 />
                 <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-2.5" />
               </div>
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
             </div>
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                비밀번호
+                {t('login.password')}
               </label>
               <div className="mt-1 relative">
                 <input
@@ -114,9 +175,9 @@ export default function LoginPage() {
                   autoComplete="current-password"
                   required
                   value={formData.password}
-                  onChange={(e) => setFormData({...formData, password: e.target.value})}
+                  onChange={handleChange}
                   className="appearance-none block w-full px-3 py-2 pl-10 pr-10 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                  placeholder="비밀번호를 입력하세요"
+                  placeholder={t('login.passwordPlaceholder')}
                 />
                 <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-2.5" />
                 <button
@@ -131,6 +192,7 @@ export default function LoginPage() {
                   )}
                 </button>
               </div>
+              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
             </div>
 
             <div className="flex items-center justify-between">
@@ -148,17 +210,24 @@ export default function LoginPage() {
 
               <div className="text-sm">
                 <Link href="/auth/forgot-password" className="font-medium text-primary-600 hover:text-primary-500">
-                  비밀번호를 잊으셨나요?
+                  {t('login.forgotPassword')}
                 </Link>
               </div>
             </div>
 
+            {errors.submit && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                {errors.submit}
+              </div>
+            )}
+
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
+                disabled={loading}
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                로그인
+                {loading ? t('login.loading') : t('login.submit')}
               </button>
             </div>
           </form>

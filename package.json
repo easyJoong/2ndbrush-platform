@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@composio/mcp": "^1.0.9",
+    "firebase": "^12.3.0",
+    "firebase-admin": "^13.5.0",
     "lucide-react": "^0.540.0",
     "next": "14.0.4",
     "react": "^18",

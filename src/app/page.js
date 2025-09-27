@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { ArrowRight, Star, Users, Calendar, ShoppingBag } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -19,14 +21,7 @@ export default function Home() {
             <p className="font-modern text-xl md:text-2xl text-gray-700 mb-8 max-w-4xl mx-auto leading-relaxed">
               {t('home.heroSubtitle')}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/auth/signup"
-                className="animated-bg text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 inline-flex items-center justify-center neon-glow hover:scale-105 transform"
-              >
-                {t('home.freeSignup')}
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
+            <div className="flex justify-center">
               <Link
                 href="/services"
                 className="glass-effect text-gray-900 px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 hover:bg-white/20 backdrop-blur-sm"
@@ -241,25 +236,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="animated-bg absolute inset-0"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h2 className="font-display text-4xl md:text-6xl font-bold text-white mb-6">
-            {t('home.ctaTitle')}
-          </h2>
-          <p className="font-modern text-xl md:text-2xl text-white/90 mb-8">
-            {t('home.ctaSubtitle')}
-          </p>
-          <Link
-            href="/auth/signup"
-            className="glass-effect text-white px-10 py-5 rounded-2xl font-bold text-xl transition-all duration-300 inline-flex items-center neon-glow hover:scale-105 transform border border-white/20"
-          >
-            {t('home.freeSignup')}
-            <ArrowRight className="ml-3 w-6 h-6" />
-          </Link>
-        </div>
-      </section>
     </>
   )
 }

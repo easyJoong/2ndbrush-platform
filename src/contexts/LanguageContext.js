@@ -112,6 +112,53 @@ const DEFAULT_TEXTS = {
     terms: '이용약관',
     copyright: '© 2024 2ndBrush. All rights reserved.',
     madeWith: 'Made with ❤️ for beautiful you'
+  },
+
+  // 회원가입 관련
+  signup: {
+    title: '회원가입',
+    subtitle: '2ndBrush와 함께하세요',
+    hasAccount: '이미 계정이 있으신가요?',
+    loginLink: '로그인',
+    name: '이름',
+    email: '이메일',
+    phone: '휴대폰 번호',
+    birthDate: '생년월일 (선택)',
+    password: '비밀번호',
+    namePlaceholder: '이름을 입력하세요',
+    emailPlaceholder: '이메일을 입력하세요',
+    phonePlaceholder: '010-1234-5678',
+    passwordPlaceholder: '6자 이상 입력하세요',
+    submit: '회원가입',
+    loading: '가입 중...',
+    errors: {
+      nameRequired: '이름을 입력해주세요',
+      emailRequired: '이메일을 입력해주세요',
+      emailInvalid: '올바른 이메일 형식이 아닙니다',
+      phoneRequired: '휴대폰 번호를 입력해주세요',
+      passwordRequired: '비밀번호를 입력해주세요',
+      passwordLength: '비밀번호는 6자 이상이어야 합니다'
+    }
+  },
+
+  // 로그인 관련
+  login: {
+    title: '로그인',
+    subtitle: '계정에 로그인하세요',
+    noAccount: '계정이 없으신가요?',
+    signupLink: '회원가입',
+    email: '이메일',
+    password: '비밀번호',
+    emailPlaceholder: '이메일을 입력하세요',
+    passwordPlaceholder: '비밀번호를 입력하세요',
+    submit: '로그인',
+    loading: '로그인 중...',
+    forgotPassword: '비밀번호를 잊으셨나요?',
+    errors: {
+      emailRequired: '이메일을 입력해주세요',
+      emailInvalid: '올바른 이메일 형식이 아닙니다',
+      passwordRequired: '비밀번호를 입력해주세요'
+    }
   }
 }
 
