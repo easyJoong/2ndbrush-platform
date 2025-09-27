@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@composio/mcp": "^1.0.9",
     "lucide-react": "^0.540.0",
     "next": "14.0.4",
     "react": "^18",

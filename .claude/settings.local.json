@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git init:*)"
+      "Bash(git init:*)",
+      "Read(//c/Users/Administrator/AppData/Roaming/Claude/**)"
     ],
     "deny": [],
     "ask": []
