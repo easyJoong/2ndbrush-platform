@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import { Instagram, Facebook, Youtube } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function Footer() {
+  const { t } = useLanguage()
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-mocha-900 to-gray-800 text-white relative overflow-hidden">
       <div className="absolute inset-0 bg-pattern opacity-5"></div>
@@ -13,7 +15,7 @@ export default function Footer() {
               <span className="font-display text-3xl font-bold text-gradient hover:scale-105 transition-transform duration-300">2ndBrush</span>
             </Link>
             <p className="font-modern text-gray-300 mb-6 leading-relaxed">
-              프리미엄 뷰티 서비스를 제공하는 회원제 통합 플랫폼
+              {t('footer.description') || '프리미엄 뷰티 서비스를 제공하는 회원제 통합 플랫폼'}
             </p>
             <div className="flex space-x-4">
               <a
@@ -41,26 +43,26 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="font-display text-xl font-bold mb-6 text-gradient">서비스</h3>
+            <h3 className="font-display text-xl font-bold mb-6 text-gradient">{t('footer.services')}</h3>
             <ul className="space-y-3">
               <li>
                 <Link href="/services/eyebrow" className="font-modern text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block">
-                  눈썹 시술
+                  {t('footer.eyebrowService')}
                 </Link>
               </li>
               <li>
                 <Link href="/services/skincare" className="font-modern text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block">
-                  피부 관리
+                  {t('footer.skincare')}
                 </Link>
               </li>
               <li>
                 <Link href="/services/scalp" className="font-modern text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block">
-                  두피 문신
+                  {t('footer.scalpTattoo')}
                 </Link>
               </li>
               <li>
                 <Link href="/services/booking" className="font-modern text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block">
-                  온라인 예약
+                  {t('footer.onlineBooking')}
                 </Link>
               </li>
             </ul>
@@ -68,26 +70,26 @@ export default function Footer() {
 
           {/* Education */}
           <div>
-            <h3 className="font-display text-xl font-bold mb-6 text-gradient">교육</h3>
+            <h3 className="font-display text-xl font-bold mb-6 text-gradient">{t('footer.education')}</h3>
             <ul className="space-y-3">
               <li>
                 <Link href="/education/basic" className="font-modern text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block">
-                  기초 과정
+                  {t('footer.basicCourse')}
                 </Link>
               </li>
               <li>
                 <Link href="/education/advanced" className="font-modern text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block">
-                  심화 과정
+                  {t('footer.advancedCourse')}
                 </Link>
               </li>
               <li>
                 <Link href="/education/startup" className="font-modern text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block">
-                  창업 과정
+                  {t('footer.startupCourse')}
                 </Link>
               </li>
               <li>
                 <Link href="/education/apply" className="font-modern text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block">
-                  교육 신청
+                  {t('footer.educationApply')}
                 </Link>
               </li>
             </ul>
@@ -95,22 +97,22 @@ export default function Footer() {
 
           {/* Company Info */}
           <div>
-            <h3 className="font-display text-xl font-bold mb-6 text-gradient">회사정보</h3>
+            <h3 className="font-display text-xl font-bold mb-6 text-gradient">{t('footer.companyInfo')}</h3>
             <ul className="space-y-3">
               <li className="font-modern text-gray-400">
-                이메일: contact@2ndbrush.com
+                {t('footer.email')}
               </li>
               <li className="font-modern text-gray-400">
-                전화: 02-1234-5678
+                {t('footer.phone')}
               </li>
               <li>
                 <Link href="/privacy" className="font-modern text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block">
-                  개인정보처리방침
+                  {t('footer.privacy')}
                 </Link>
               </li>
               <li>
                 <Link href="/terms" className="font-modern text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-2 inline-block">
-                  이용약관
+                  {t('footer.terms')}
                 </Link>
               </li>
             </ul>
@@ -121,10 +123,10 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="font-modern text-gray-400 text-sm">
-            © 2024 2ndBrush. All rights reserved.
+            {t('footer.copyright')}
           </p>
           <p className="font-modern text-gray-400 text-sm mt-2 md:mt-0">
-            Made with <span className="text-crimson-400 animate-bounce-subtle inline-block">❤️</span> for beautiful you
+            {t('footer.madeWith')}
           </p>
         </div>
       </div>
