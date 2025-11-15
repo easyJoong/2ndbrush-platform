@@ -2,15 +2,15 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Menu, X, User, ChevronDown, LogOut, Settings } from 'lucide-react'
+import { Menu, X, ChevronDown, LogOut, Settings } from 'lucide-react'
 import LanguageSelector from '@/components/common/LanguageSelector'
-import { useLanguage } from '@/contexts/LanguageContext'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '@/contexts/AuthContext'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
-  const { t } = useLanguage()
+  const { t } = useTranslation('common')
   const { user, isAdmin, logout } = useAuth()
 
   const handleLogout = async () => {

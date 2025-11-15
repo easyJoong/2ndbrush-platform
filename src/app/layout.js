@@ -2,7 +2,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import { LanguageProvider } from '@/contexts/LanguageContext'
+import I18nProvider from '@/contexts/I18nProvider'
 import { AuthProvider } from '@/contexts/AuthContext'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko">
       <body className={inter.className}>
-        <LanguageProvider>
+        <I18nProvider>
           <AuthProvider>
             <Header />
             <main className="min-h-screen pt-20">
@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
             </main>
             <Footer />
           </AuthProvider>
-        </LanguageProvider>
+        </I18nProvider>
       </body>
     </html>
   )

@@ -2,10 +2,10 @@
 
 import Link from 'next/link'
 import { Instagram, Facebook, Youtube } from 'lucide-react'
-import { useLanguage } from '@/contexts/LanguageContext'
+import { useTranslation } from 'react-i18next'
 
 export default function Footer() {
-  const { t } = useLanguage()
+  const { t } = useTranslation('common')
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-mocha-900 to-gray-800 text-white relative overflow-hidden">
       <div className="absolute inset-0 bg-pattern opacity-5"></div>

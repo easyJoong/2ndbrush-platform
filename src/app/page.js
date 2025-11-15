@@ -2,10 +2,10 @@
 
 import Link from 'next/link'
 import { ArrowRight, Star, Users, Calendar, ShoppingBag } from 'lucide-react'
-import { useLanguage } from '@/contexts/LanguageContext'
+import { useTranslation } from 'react-i18next'
 
 export default function Home() {
-  const { t } = useLanguage()
+  const { t } = useTranslation('common')
   return (
     <>
       {/* Hero Section */}

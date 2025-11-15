@@ -39,3 +39,5 @@ yarn-error.log*
 # Firebase
 *firebase-adminsdk*.json
 .env.local
+.firebase/
+firebase-debug.log

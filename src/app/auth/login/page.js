@@ -5,10 +5,10 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
-import { useLanguage } from '@/contexts/LanguageContext'
+import { useTranslation } from 'react-i18next'
 
 export default function LoginPage() {
-  const { t } = useLanguage()
+  const { t } = useTranslation('common')
   const { login } = useAuth()
   const router = useRouter()
   const searchParams = useSearchParams()

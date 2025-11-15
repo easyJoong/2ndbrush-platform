@@ -2,18 +2,45 @@
 
 import { useState } from 'react'
 import { ChevronDown, Globe } from 'lucide-react'
-import { useLanguage } from '@/contexts/LanguageContext'
+import { useTranslation } from 'react-i18next'
+
+// 지원 언어 목록
+const SUPPORTED_LANGUAGES = {
+  ko: {
+    code: 'ko',
+    name: '한국어',
+    flag: '🇰🇷'
+  },
+  en: {
+    code: 'en',
+    name: 'English',
+    flag: '🇺🇸'
+  },
+  zh: {
+    code: 'zh',
+    name: '中文',
+    flag: '🇨🇳'
+  }
+}
 
 export default function LanguageSelector() {
   const [isOpen, setIsOpen] = useState(false)
-  const { currentLanguage, changeLanguage, supportedLanguages, isLoading } = useLanguage()
+  const { i18n } = useTranslation()
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleLanguageChange = async (langCode) => {
-    await changeLanguage(langCode)
-    setIsOpen(false)
+    setIsLoading(true)
+    try {
+      await i18n.changeLanguage(langCode)
+      setIsOpen(false)
+    } catch (error) {
+      console.error('언어 변경 오류:', error)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
-  const currentLang = supportedLanguages[currentLanguage]
+  const currentLang = SUPPORTED_LANGUAGES[i18n.language] || SUPPORTED_LANGUAGES.ko
 
   return (
     <div className="relative">
@@ -35,12 +62,12 @@ export default function LanguageSelector() {
       {/* 드롭다운 메뉴 */}
       {isOpen && (
         <div className="absolute top-full right-0 mt-2 w-48 glass-effect rounded-2xl shadow-lg border border-white/20 z-50 overflow-hidden">
-          {Object.values(supportedLanguages).map((language) => (
+          {Object.values(SUPPORTED_LANGUAGES).map((language) => (
             <button
               key={language.code}
               onClick={() => handleLanguageChange(language.code)}
               className={`w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-white/20 transition-all duration-300 ${
-                currentLanguage === language.code
+                i18n.language === language.code
                   ? 'bg-primary-50/50 text-primary-600'
                   : 'text-gray-700 hover:text-primary-600'
               }`}
@@ -48,7 +75,7 @@ export default function LanguageSelector() {
             >
               <span className="text-lg">{language.flag}</span>
               <span className="font-modern font-medium">{language.name}</span>
-              {currentLanguage === language.code && (
+              {i18n.language === language.code && (
                 <div className="ml-auto w-2 h-2 bg-primary-500 rounded-full"></div>
               )}
             </button>

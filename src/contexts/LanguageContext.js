@@ -159,6 +159,126 @@ const DEFAULT_TEXTS = {
       emailInvalid: '올바른 이메일 형식이 아닙니다',
       passwordRequired: '비밀번호를 입력해주세요'
     }
+  },
+
+  // 교육 페이지
+  education: {
+    heroTitle: '전문가 교육 프로그램',
+    heroSubtitle: '체계적인 커리큘럼과 실무 중심의 교육으로 뷰티 전문가의 꿈을 실현해보세요.',
+    applyButton: '교육 신청하기',
+    consultButton: '상담 예약',
+    coursesTitle: '교육 과정',
+    coursesSubtitle: '초보자부터 전문가까지, 단계별 맞춤 교육',
+    benefitsTitle: '2ndBrush 교육의 특별함',
+    benefitsSubtitle: '차별화된 교육 시스템으로 실력있는 전문가를 양성합니다',
+    successTitle: '수료생 성공 사례',
+    successSubtitle: '2ndBrush 교육으로 꿈을 이룬 수료생들의 이야기',
+    ctaTitle: '지금 시작하세요',
+    ctaSubtitle: '전문가의 꿈, 2ndBrush와 함께 실현해보세요',
+    freeConsult: '무료 상담 예약',
+
+    // 과정 정보
+    basicCourse: '기초 과정',
+    advancedCourse: '심화 과정',
+    startupCourse: '창업 과정',
+    oneDayClass: '원데이 클래스',
+
+    // 공통 레이블
+    duration: '기간',
+    level: '레벨',
+    students: '수료',
+    schedule: '일정',
+    certificate: '수료증 발급',
+    curriculum: '주요 커리큘럼',
+    more: '개 더',
+    price: '원',
+    detailButton: '자세히 보기',
+
+    // 레벨
+    beginner: '입문자',
+    intermediate: '중급자',
+    expert: '전문가',
+    allLevels: '모든 레벨',
+
+    // 혜택
+    certificationTitle: '공인 수료증',
+    certificationDesc: '모든 과정 수료 시 2ndBrush 공인 수료증을 발급해드립니다.',
+    smallClassTitle: '소수 정예',
+    smallClassDesc: '강사 1명당 최대 8명의 소수 정예로 진행하여 개별 케어가 가능합니다.',
+    practicalTitle: '실무 중심',
+    practicalDesc: '이론보다는 실제 현장에서 바로 활용 가능한 실무 중심 교육을 제공합니다.',
+
+    // 과정 설명
+    basicDesc: '뷰티 업계 입문자를 위한 기초 과정입니다. 이론부터 실습까지 체계적으로 배워보세요.',
+    advancedDesc: '기초 과정 수료자를 위한 심화 과정입니다. 전문적인 기술과 노하우를 습득할 수 있습니다.',
+    startupDesc: '독립 창업을 목표로 하는 전문가를 위한 종합 과정입니다. 기술부터 경영까지 모든 것을 배웁니다.',
+    oneDayDesc: '바쁜 일정 중에도 부담 없이 참여할 수 있는 하루 완성 클래스입니다.',
+
+    // 수료생 후기
+    review1: '"창업 과정을 통해 체계적으로 배워서 지금은 성공적으로 샵을 운영하고 있어요. 정말 감사합니다!"',
+    review1Author: '김○○ 원장',
+    review1Role: '창업 과정 수료 → 독립 창업',
+    review2: '"기초부터 심화까지 단계별로 배워서 자신감을 갖고 고객을 응대할 수 있게 되었어요."',
+    review2Author: '이○○ 실장',
+    review2Role: '심화 과정 수료 → 대형샵 취업',
+    review3: '"원데이 클래스로 시작해서 지금은 정규 과정까지 모두 수료했어요. 정말 알찬 교육이에요!"',
+    review3Author: '박○○ 님',
+    review3Role: '전 과정 수료 → 프리랜서 활동',
+
+    popular: '인기'
+  },
+
+  // 쇼핑 페이지
+  shop: {
+    heroTitle: '프리미엄 뷰티 스토어',
+    heroSubtitle: '전문가가 엄선한 고품질 뷰티 디바이스와 제품들을 만나보세요. 회원만의 특별한 가격으로 제공합니다.',
+    searchPlaceholder: '상품을 검색하세요...',
+    filter: '필터',
+    categories: '카테고리',
+    priceRange: '가격대',
+
+    // 카테고리
+    allProducts: '전체',
+    treatmentTools: '시술 도구',
+    homeDevices: '홈케어 디바이스',
+    cosmetics: '화장품/앰플',
+    materials: '교육 교재',
+
+    // 가격대
+    under50k: '5만원 미만',
+    range50to100k: '5만원 - 10만원',
+    range100to200k: '10만원 - 20만원',
+    over200k: '20만원 이상',
+
+    // 정렬
+    sortBy: '정렬',
+    recommended: '추천순',
+    popular: '인기순',
+    priceLow: '가격 낮은 순',
+    priceHigh: '가격 높은 순',
+    newest: '최신순',
+
+    // 배지
+    bestseller: '베스트셀러',
+    professional: '프로용',
+    sale: '할인',
+    new: '신상품',
+
+    // 상품 정보
+    totalProducts: '총',
+    productsCount: '개 상품',
+    reviews: '리뷰',
+    detailButton: '자세히 보기',
+    addToCart: '장바구니',
+
+    // 페이지네이션
+    previous: '이전',
+    next: '다음',
+
+    // CTA
+    memberBenefitsTitle: '회원만의 특별한 혜택',
+    memberBenefitsSubtitle: '지금 회원가입하고 최대 20% 할인받으세요',
+    signupButton: '회원가입하기'
   }
 }
 

@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Eye, EyeOff, Mail, Lock, User, Phone, Gift } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
-import { useLanguage } from '@/contexts/LanguageContext'
+import { useTranslation } from 'react-i18next'
 
 export default function SignupPage() {
-  const { t } = useLanguage()
+  const { t } = useTranslation('common')
   const { signup } = useAuth()
   const router = useRouter()
 
