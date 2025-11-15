@@ -70,8 +70,13 @@ firebase deploy --only hosting
 ## 배포 후 확인
 
 ### 배포 URL
-- **프로덕션**: https://2ndbrush-platform.web.app
+- **커스텀 도메인**: https://www.2ndbrush.com (설정 필요)
+- **Firebase 기본 URL**: https://2ndbrush-platform.web.app
+- **Firebase 앱 URL**: https://2ndbrush-platform.firebaseapp.com
 - **Preview**: 배포 시 제공되는 URL
+
+### 커스텀 도메인 설정
+자세한 커스텀 도메인 설정 방법은 [CUSTOM_DOMAIN.md](CUSTOM_DOMAIN.md)를 참고하세요.
 
 ### 배포 상태 확인
 ```bash
