@@ -1,8 +1,6 @@
 import { initializeApp, getApps, cert } from 'firebase-admin/app'
 import { getAuth } from 'firebase-admin/auth'
 import { getFirestore } from 'firebase-admin/firestore'
-import { readFileSync } from 'fs'
-import { join } from 'path'
 
 // Firebase Admin SDK 초기화
 function createFirebaseAdminApp() {
@@ -11,13 +9,25 @@ function createFirebaseAdminApp() {
   }
 
   try {
-    // 서비스 계정 키 파일 읽기
-    const serviceAccountPath = join(process.cwd(), 'second-brush-firebase-adminsdk-fbsvc-9bd6912bf6.json')
-    const serviceAccount = JSON.parse(readFileSync(serviceAccountPath, 'utf8'))
+    // 환경 변수에서 서비스 계정 정보 가져오기
+    const projectId = process.env.FIREBASE_PROJECT_ID
+    const clientEmail = process.env.FIREBASE_CLIENT_EMAIL
+    const privateKey = process.env.FIREBASE_PRIVATE_KEY
+
+    if (!projectId || !clientEmail || !privateKey) {
+      throw new Error('Firebase Admin SDK credentials are missing in environment variables')
+    }
+
+    // Private key의 이스케이프 문자 처리 (\n을 실제 줄바꿈으로)
+    const formattedPrivateKey = privateKey.replace(/\\n/g, '\n')
 
     return initializeApp({
-      credential: cert(serviceAccount),
-      databaseURL: `https://${process.env.FIREBASE_PROJECT_ID || 'second-brush'}-default-rtdb.firebaseio.com`
+      credential: cert({
+        projectId,
+        clientEmail,
+        privateKey: formattedPrivateKey,
+      }),
+      databaseURL: `https://${projectId}-default-rtdb.firebaseio.com`
     })
   } catch (error) {
     console.error('Firebase Admin SDK initialization error:', error)
